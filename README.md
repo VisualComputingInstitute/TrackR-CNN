@@ -21,14 +21,19 @@ Also create the following directories for logs, model files etc.:
 mkdir forwarded models summaries logs
 ```
 
+### Pre-Trained Models
+Pre-trained models can be downloaded here: https://omnomnom.vision.rwth-aachen.de/data/trackrcnn/
+
 ### Training
 In order to train a model, run `main.py` with the corresponding configuration file. For the baseline model with two separable 3D convolutions and data association with learned embeddings, use
 ```
 python main.py configs/conv3d_sep2
 ```
-You'll need to adjust the `KITTI_segtrack_data_dir` and `load_init` flags to point to the KITTI MOTS data directory and the path to the pretrained model, respectively. Logs, checkpoints and summaries are stored in the `logs/`, `models/` and `summaries/` subdirectories.
+You'll need to adjust the `KITTI_segtrack_data_dir` and `load_init` flags to point to the [KITTI MOTS](https://www.vision.rwth-aachen.de/page/mots) data directory and the path to the [pretrained model](https://omnomnom.vision.rwth-aachen.de/data/trackrcnn/trackrcnn_init.zip), respectively. Logs, checkpoints and summaries are stored in the `logs/`, `models/` and `summaries/` subdirectories.
 
 ### Forwarding and tracking
+Either first train your own model as described above, or download [our model](https://omnomnom.vision.rwth-aachen.de/data/trackrcnn/conv3d_sep2-00000005.zip) and extract the files into models/conv3d_sep2/
+
 To obtain the model's predictions (we call this "forwarding") run:
 ```
 python main.py configs/conv3d_sep2 "{\"task\":\"forward_tracking\",\"dataset\":\"KITTI_segtrack_feed\",\"load_epoch_no\":5,\"batch_size\":5,\"export_detections\":true,\"do_tracking\":false,\"video_tags_to_load\":[\"0002\",\"0006\",\"0007\",\"0008\",\"0010\",\"0013\",\"0014\",\"0016\",\"0018\",\"0000\",\"0001\",\"0003\",\"0004\",\"0005\",\"0009\",\"0011\",\"0012\",\"0015\",\"0017\",\"0019\",\"0020\"]}"
@@ -67,3 +72,8 @@ If you use this code, please cite:
 
 ## License
 MIT License
+
+## Contact
+If you find a problem in the code, please open an issue.
+
+For general questions, please contact Paul Voigtlaender (voigtlaender@vision.rwth-aachen.de) or Michael Krause (michael.krause@rwth-aachen.de)
