@@ -1,0 +1,54 @@
+{
+  # Engine settings
+  "model": "normal_mask_rcnn",
+  "task": "forward_refine_bboxes",
+  "dataset": "KITTI_segtrack_bbox_refinement",
+  "log_verbosity": 5,
+  "gpus": 1,
+  #"own_dataset_per_gpu": true,
+  "use_summaries": false,
+  "write_summaries": false,
+  "collect_run_metadata": false,
+
+  # MaskRCNN on/off
+  "add_masks": true,
+
+  # Pretrained model from tensorpack
+  "load_init": "/globalwork/krause/pretrained_models/tensorpack/PReMVOS-COCO-Mapillary-PreProcForKITTISegtrack/converted",
+  # Freeze applies to the whole model, not just our backend, but that's fine since only the backend uses batchnorm
+  "freeze_batchnorm": true,
+  "max_saves_to_keep": 1,
+
+  # Training settings
+  "batch_size": 1,
+  "learning_rates": "{1: 0.0000005}",
+  "optimizer": "adam",
+  "num_epochs": 5,
+  "max_saves_to_keep": 1,
+
+  # Dataset options
+  "KITTI_segtrack_data_dir": "/globalwork/krause/data/KITTI_MOTS/train/",
+  "MOTS_segtrack_data_dir": "/globalwork/krause/data/MOTS_challenge/train/",
+  "optical_flow_path": "/globalwork/krause/data/KITTI_flow_pwc/",
+  "prefer_gt_to_ignore": true,
+  "use_ioa_for_ignore": true,
+  "use_masks_for_ignore": false,
+  "resize_mode_train": "fixed_size",
+  "input_size_train": [309, 1024],
+  "resize_mode_val": "fixed_size",
+  "input_size_val": [375, 1242],
+
+  "augmentors_train": ["flip", "gamma"],
+  "num_parallel_calls": 6,
+  "prefetch_buffer_size": 8,
+
+  "mask_disjoint_strategy": "score",
+  "tracking_result_to_refine_path": "/globalwork/krause/tf-data/forwarded/conv3d_nomask/tracking_data",
+
+  "network": {
+    "resnetconv4": {"class": "ResNet101Conv4"},
+    "frcnn": {"class": "FasterRCNN", "fastrcnn_batch_per_img": 64, "reid_dimension": 128, "reid_loss_per_class": true,
+              "reid_loss_factor": 0.0, "reid_loss_variant": 1, "reid_measure": "euclidean", "from": ["resnetconv4"],
+              "class_agnostic_box_and_mask_heads": true, "provide_boxes_as_input": true}
+  }
+}
