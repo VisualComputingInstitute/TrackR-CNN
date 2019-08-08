@@ -15,13 +15,20 @@ Scores = namedtuple("Scores", ["sMOTSA_car", "sMOTSA_ped", "MOTSA_car", "MOTSA_p
 
 
 def read_result(content):
-  # This actually extracts the * results (even though the names in this file havent been updated to reflect that)
-  results_for_table_line = content.split("\n")[-2]
-  results = results_for_table_line.split("\t")
+  lines = content.split("\n")
+  cars_index = -1
+  ped_index = -1
+  for line_index in range(len(lines)):
+    if "Evaluate class: Cars" in lines[line_index]:
+      cars_index = line_index
+    if "Evaluate class: Pedestrians" in lines[line_index]:
+      ped_index = line_index
+  results_cars = lines[cars_index+2].split()
+  results_ped = lines[ped_index+2].split()
 
-  score = Scores(float(results[0]), float(results[1]), float(results[2]), float(results[3]), float(results[4]),
-                 float(results[5]), int(results[6]), int(results[7]))
-  print(results, score)
+  score = Scores(float(results_cars[1]), float(results_ped[1]), float(results_cars[2]), float(results_ped[2]), float(results_cars[3]),
+                 float(results_ped[3]), int(results_cars[17]), int(results_ped[17]))
+  print(score)
   return score
 
 
