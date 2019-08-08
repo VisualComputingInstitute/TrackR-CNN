@@ -16,6 +16,7 @@ You'll need to install the following packages (possibly more):
 ```
 tensorflow-gpu pycocotools numpy scipy sklearn pypng opencv-python munkres
 ```
+In particular, the code has been tested with Python 3.6.7 and Tensorflow 1.13.1.
 Also create the following directories for logs, model files etc.:
 ```
 mkdir forwarded models summaries logs
