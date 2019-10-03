@@ -18,7 +18,7 @@ tensorflow-gpu pycocotools numpy scipy sklearn pypng opencv-python munkres
 ```
 In particular, the code has been tested with Python 3.6.7 and Tensorflow 1.13.1.
 
-Furthermore, you'll need the [KITTI MOTS](https://www.vision.rwth-aachen.de/page/mots) dataset, where we assume you have a folder /path/to/kitti_mots with subfolders /path/to/kitti_mots/images containing the input images and /path/to/kitti_mots/instances containing the annotations.
+Furthermore, you'll need the [KITTI MOTS](https://www.vision.rwth-aachen.de/page/mots) dataset, where we assume you have a folder /path/to/kitti_mots with subfolders /path/to/kitti_mots/images containing the input images (i.e. there exist subfolders /path/to/kitti_mots/images/0000, /path/to/kitti_mots/images/0001, ...) and /path/to/kitti_mots/instances  (again with subfolders 0000, 0001, ...) containing the annotations.
 
 Also, create the following directories for logs, model files etc. in the base directory of the repository:
 ```
