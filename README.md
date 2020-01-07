@@ -16,7 +16,7 @@ You'll need to install the following packages (possibly more):
 ```
 tensorflow-gpu pycocotools numpy scipy sklearn pypng opencv-python munkres
 ```
-In particular, the code has been tested with Python 3.6.7 and Tensorflow 1.13.1.
+In particular, the code has been tested with Python 3.6.7 and Tensorflow 1.13.1 running on a single GTX 1080 Ti gpu. While there is experimental support for multi-gpu training through the "gpus" config flag, some users have reported problems with this, so we recommend using one gpu only.
 
 Furthermore, you'll need the [KITTI MOTS](https://www.vision.rwth-aachen.de/page/mots) dataset, where we assume you have a folder /path/to/kitti_mots with subfolders /path/to/kitti_mots/images containing the input images (i.e. there exist subfolders /path/to/kitti_mots/images/0000, /path/to/kitti_mots/images/0001, ...) and /path/to/kitti_mots/instances  (again with subfolders 0000, 0001, ...) containing the annotations.
 
@@ -28,12 +28,46 @@ mkdir forwarded models summaries logs
 ### Pre-Trained Models
 Pre-trained models can be downloaded here: https://omnomnom.vision.rwth-aachen.de/data/trackrcnn/
 
+### Folder structure and config flags
+In the configuration files, you'll need to adjust the `KITTI_segtrack_data_dir` and `load_init` flags to point to the [KITTI MOTS](https://www.vision.rwth-aachen.de/page/mots) data directory and the path to the [pretrained model](https://omnomnom.vision.rwth-aachen.de/data/trackrcnn/trackrcnn_init.zip), respectively. Logs, checkpoints and summaries are stored in the `logs/`, `models/` and `summaries/` subdirectories.
+
+So all in all, your folder structure should look like this:
+```
+data/
+- KITTI_MOTS/
+-- train/
+--- images/
+---- 0000/
+----- 000000.png
+----- 000001.png
+----- ...
+---- 0001/
+---- ...
+--- instances/
+---- 0000/
+----- 000000.png
+----- 000001.png
+----- ...
+---- 0001/
+---- ...
+models/
+- conv3d_sep2/
+-- conv3d_sep2-00000005.data-00000-of-00001
+-- conv3d_sep2-00000005.index
+-- conv3d_sep2-00000005.meta
+- converted.data-00000-of-00001
+- converted.meta
+- converted.index 
+...
+main.py
+```
+So point `KITTI_segtrack_data_dir` to `data/KITTI_MOTS/train/` and `load_init` to `models/converted`.
+
 ### Training
 In order to train a model, run `main.py` with the corresponding configuration file. For the baseline model with two separable 3D convolutions and data association with learned embeddings, use
 ```
 python main.py configs/conv3d_sep2
 ```
-You'll need to adjust the `KITTI_segtrack_data_dir` and `load_init` flags to point to the [KITTI MOTS](https://www.vision.rwth-aachen.de/page/mots) data directory and the path to the [pretrained model](https://omnomnom.vision.rwth-aachen.de/data/trackrcnn/trackrcnn_init.zip), respectively. Logs, checkpoints and summaries are stored in the `logs/`, `models/` and `summaries/` subdirectories.
 
 ### Forwarding and tracking
 Either first train your own model as described above, or download [our model](https://omnomnom.vision.rwth-aachen.de/data/trackrcnn/conv3d_sep2-00000005.zip) and extract the files into models/conv3d_sep2/
