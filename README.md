@@ -5,6 +5,10 @@ Code for the TrackR-CNN baseline for the Multi Object Tracking and Segmentation 
 https://www.vision.rwth-aachen.de/page/mots
 
 ## Paper
+### MOTS: Multi-Object Tracking and Segmentation
+
+Paul Voigtlaender, Michael Krause, Aljosa Osep, Jonathon Luiten, Berin Balachandar Gnana Sekar, Andreas Geiger and Bastian Leibe
+
 https://www.vision.rwth-aachen.de/media/papers/mots-multi-object-tracking-and-segmentation/MOTS.pdf
 
 ## mots_tools for evaluating results
@@ -101,7 +105,7 @@ Parts of this code are based on Tensorpack (https://github.com/tensorpack/tensor
 If you use this code, please cite:
 ```
 @inproceedings{Voigtlaender19CVPR_MOTS,
- author = {Paul Voigtlaender and Michael Krause and Aljo\u{s}a O\u{s}ep and Jonathon Luiten and Berin Balachandar Gnana Sekar and Andreas Geiger and Bastian Leibe},
+ author = {Paul Voigtlaender and Michael Krause and Aljosa Osep and Jonathon Luiten and Berin Balachandar Gnana Sekar and Andreas Geiger and Bastian Leibe},
  title = {{MOTS}: Multi-Object Tracking and Segmentation},
  booktitle = {CVPR},
  year = {2019},
